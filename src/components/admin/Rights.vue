@@ -7,7 +7,7 @@
         <el-breadcrumb-item>用户列表</el-breadcrumb-item>
         </el-breadcrumb>
         <el-card>
-            <el-row :gutter="25">
+            <el-row :gutter="25" type="flex" justify="center" align="middle">
                 <el-col :span="10">
                     <el-input placeholder="请输入搜索内容" v-model="queryInfo.query" clearable @clear="getUserList">
                         <el-button slot="append" icon="el-icon-search" @click="getUserList"></el-button>
@@ -17,10 +17,10 @@
                     <el-button type="primary" @click="toggleAddDialogVisible">添加用户</el-button>
                 </el-col>
             </el-row>
-            <el-table :data="userList" border stripe>
+            <el-table :data="userList" border stripe :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }"> >
                 <el-table-column type="index"></el-table-column>
                 <el-table-column label="用户名" prop="username"></el-table-column>
-                <el-table-column label=“邮箱 prop="email"></el-table-column>
+                <el-table-column label="邮箱" prop="email"></el-table-column>
                 <el-table-column label="密码" prop="password"></el-table-column>
                 <el-table-column label="角色" prop="role"></el-table-column>
                 <el-table-column label="状态" prop="state">
@@ -30,11 +30,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column label="操作">
-                    <template slot-scope="scope">
-                        <!-- 修改 -->
-                        <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.id)" ></el-button>
-                        <!-- 删除 -->
-                        <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteUser(scope.row.id)"></el-button>
+                    <template slot-scope="scope" class="auth">
                         <!-- 权限 -->
                         <el-tooltip effect="dark" content="分配权限" placement="top-start" :enterable="false"><!--文字提示 enterable 隐藏-->
                         <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
@@ -232,4 +228,5 @@ export default {
     margin-bottom: 15px;
     font-size: 17px;
 }
+
 </style>
