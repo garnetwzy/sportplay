@@ -1,10 +1,11 @@
 <template>
-    <div>用户列表
+    <div>
         <!-- 面包屑导航 -->
+        <h1>User List</h1>
         <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item>权限管理</el-breadcrumb-item>
-        <el-breadcrumb-item>用户列表</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/home' }">Main</el-breadcrumb-item>
+        <el-breadcrumb-item>Auth Management</el-breadcrumb-item>
+        <el-breadcrumb-item>User List</el-breadcrumb-item>
         </el-breadcrumb>
         <el-card>
             <el-row :gutter="25" type="flex" justify="center" align="middle">
