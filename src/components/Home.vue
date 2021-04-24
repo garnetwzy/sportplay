@@ -3,9 +3,9 @@
         <el-header>
             <div>
                 <img src="../assets/logo.jpg" >
-                <span>个人运动平台</span>
+                <span>Personal Fitness Platform</span>
             </div>
-            <el-button type="info" @click="logout">安全退出</el-button>
+            <el-button type="info" @click="logout">Exit</el-button>
         </el-header>
         <el-container>
             <el-aside :width="isCollapse? '64px' : '200px'">
@@ -73,7 +73,7 @@ export default {
         async getMenuList() {
             const { data: res } = await this.$http.get("menus");
             console.log(res);
-            if (res.status != 200) return this.$message.error("获取列表失败！！！");
+            if (res.status != 200) return this.$message.error("Failed to fetch data");
             this.menuList = res.data;
 
         },

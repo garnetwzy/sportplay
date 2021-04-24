@@ -160,9 +160,9 @@ export default {
                 if (!valid) return;
                 const { data:res } = await this.$http.post("addSports", this.addForm);
                 if (res != "success") {
-                    return this.$message.error("操作失败！！！");
+                    return this.$message.error("Failed to add sport!");
                 }
-                this.$message.success("操作成功！！！")
+                this.$message.success("Success!")
                 this.addDialogVisible = false;
                 this.getSportList();
             });
@@ -171,19 +171,19 @@ export default {
             this.addDialogVisible = !this.addDialogVisible;
         },
         async deleteSport(id) {
-            const confirmResult = await this.$confirm('此操作将永久删除sport，是否继续？', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
+            const confirmResult = await this.$confirm('This action will delete sport permanently, click to continue', 'reminder', {
+                confirmButtonText: 'Confirm',
+                cancelButtonText: 'Cancel',
                 type: 'warning'
             }).catch(err => err);
             if (confirmResult != 'confirm') {
-                return this.$message.Info("已取消删除");
+                return this.$message.Info("Cancelled");
             }
             const { data:res } = await this.$http.delete("deleteSport?id=" + id);
             if (res != "success") {
-                return this.$message.error("删除失败！");
+                return this.$message.error("Failed to delete!");
             }
-            this.$message.success("删除成功！");
+            this.$message.success("Success!");
             this.getSportList();
         },
         async showEditDialog(id) {
@@ -199,9 +199,9 @@ export default {
                 if (!valid) return;
                 const { data:res} = await this.$http.put("editSports", this.editForm);
                 if (res != "success") {
-                    return this.$message.error("操作失败！");
+                    return this.$message.error("Failed to edit!");
                 }
-                this.$message.success("操作成功！");
+                this.$message.success("Success！");
                 this.editDialogVisible = false;
                 this.getSportList();
             });

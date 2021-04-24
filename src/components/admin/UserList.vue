@@ -26,7 +26,6 @@
                 <el-table-column label="角色" prop="role"></el-table-column>
                 <el-table-column label="状态" prop="state">
                     <template slot-scope="scope">
-                        {{scope.row}}
                         <el-switch v-model="scope.row.state" @change="userStateChanged(scope.row)"></el-switch>
                     </template>
                 </el-table-column>
