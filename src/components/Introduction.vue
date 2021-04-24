@@ -10,17 +10,17 @@
         <el-card>
             <el-row :gutter="25" type="flex" justify="center" align="middle">
                 <el-col :span="10">
-                    <el-input placeholder="请输入搜索内容" v-model="queryInfo.query" clearable @clear="getUserList">
+                    <el-input placeholder="Please input content to search for" v-model="queryInfo.query" clearable @clear="getUserList">
                         <el-button slot="append" icon="el-icon-search" @click="getUserList"></el-button>
                     </el-input>
                 </el-col>
             </el-row>
-            <el-table :data="userList" border stripe :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }">
+            <el-table :data="sportsList" border stripe :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }">
                 <el-table-column type="index"></el-table-column>
-                <el-table-column label="Sport name" prop="username"></el-table-column>
-                <el-table-column label="Calories per hour" prop="email"></el-table-column>
-                <el-table-column label="Details" prop="password"></el-table-column>
-                <el-table-column label="Mark as Favorite" prop="state">
+                <el-table-column label="Sport name" prop="SportName"></el-table-column>
+                <el-table-column label="Calories per hour" prop="Calories"></el-table-column>
+                <el-table-column label="Details" prop="Details"></el-table-column>
+                <el-table-column label="Mark as Favorite" prop="Favorite">
                     <template slot-scope="scope">
                         <el-switch v-model="scope.row.state" @change="userStateChanged(scope.row)"></el-switch>
                     </template>
@@ -53,8 +53,8 @@
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="editDialogVisible = false">取消</el-button>
-                <el-button type="primary" @click="editUserInfo">确定</el-button>
+                <el-button @click="editDialogVisible = false">Cancel</el-button>
+                <el-button type="primary" @click="editUserInfo">Confirm</el-button>
             </span>
         </el-dialog>
     </div>
@@ -72,7 +72,79 @@ export default {
                 pageNum: 1,
                 pageSize: 5
             },
-            userList: [],
+            //hardcode the sportsList
+            sportsList: [
+              { SportName: "Yoga",
+                Calories: "180 ~ 460",
+                Details: "Null",
+                Favorite: 0
+              },
+              { SportName: "Jogging",
+                Calories: "200 ~ 400",
+                Details: "Null",
+                Favorite: 0
+              },
+              { SportName: "Cycling",
+                Calories: "600",
+                Details: "Null",
+                Favorite: 0
+              },
+              { SportName: "Walking",
+                Calories: "230 ~ 370",
+                Details: "Null",
+                Favorite: 0
+              },
+              { SportName: "Swimming",
+                Calories: "600 ~ 1000",
+                Details: "Null",
+                Favorite: 0
+              },
+              { SportName: "Dancing",
+                Calories: "200 ~ 400",
+                Details: "Null",
+                Favorite: 0
+              },
+              { SportName: "Badminton",
+                Calories: "200 ~ 400",
+                Details: "Null",
+                Favorite: 0
+              },
+              { SportName: "Basketball",
+                Calories: "470 ~ 740",
+                Details: "Null",
+                Favorite: 0
+              },
+              { SportName: "Billiards",
+                Calories: "150 ~ 200",
+                Details: "Null",
+                Favorite: 0
+              },
+              { SportName: "Boxing",
+                Calories: "700 ~ 1200",
+                Details: "Null",
+                Favorite: 0
+              },
+              { SportName: "Bowling",
+                Calories: "200",
+                Details: "Null",
+                Favorite: 0
+              },
+              { SportName: "Football",
+                Calories: "600 ~ 800",
+                Details: "Null",
+                Favorite: 0
+              },
+              { SportName: "Golf",
+                Calories: "200 ~ 400",
+                Details: "Null",
+                Favorite: 0
+              },
+              { SportName: "Hockey",
+                Calories: "400 ~ 750",
+                Details: "Null",
+                Favorite: 0
+              },
+            ],
             total: 0,
             addDialogVisible: false,
             addForm: {
@@ -86,90 +158,42 @@ export default {
             editDialogVisible: false,
             addFormRules: {
                 username: [
-                    { required: true, message: '请输入用户名', trigger: 'blur' },
-                    { min: 5, max: 8, message: '长度在 5 到 8 个字符', trigger: 'blur' }
+                    { required: true, message: 'Please input username', trigger: 'blur' },
+                    { min: 5, max: 8, message: '5 - 8 characters', trigger: 'blur' }
                 ],
                 password: [
-                    { required: true, message: '请输入密码', trigger: 'blur' },
-                    { min: 6, max: 8, message: '长度在 6 到 8 个字符', trigger: 'blur' }
+                    { required: true, message: 'Please input password', trigger: 'blur' },
+                    { min: 6, max: 8, message: '6 - 8 characters', trigger: 'blur' }
                 ],
                 email: [
-                    { required: true, message: '请输入邮箱', trigger: 'blur' },
-                    { min: 5, max: 15, message: '请输入正确的邮箱地址', trigger: 'blur' }
+                    { required: true, message: 'Please input email address', trigger: 'blur' },
+                    { min: 5, max: 15, message: 'Please type in correct email address', trigger: 'blur' }
                 ],
             },
             editFormRules: {
                 password: [
-                    { required: true, message: '请输入密码', trigger: 'blur' },
-                    { min: 6, max: 8, message: '长度在 6 到 8 个字符', trigger: 'blur' }
+                    { required: true, message: 'Please input password', trigger: 'blur' },
+                    { min: 6, max: 8, message: '6 - 8 characters', trigger: 'blur' }
                 ],
                 email: [
-                    { required: true, message: '请输入邮箱', trigger: 'blur' },
-                    { min: 5, max: 15, message: '请输入正确的邮箱地址', trigger: 'blur' }
+                    { required: true, message: 'Please input email address', trigger: 'blur' },
+                    { min: 5, max: 15, message: 'Please type in correct email address', trigger: 'blur' }
                 ],
             },
         }
     },
     methods: {
-        async getUserList() {
-            const {data:res} = await this.$http.get("allUser", {params: this.queryInfo});
-            this.userList = res.data;
-            this.total = res.numbers;
-        },
         handleSizeChange(newSize) {
             this.queryInfo.pageSize = newSize;
-            this.getUserList();
         },
         handleCurrentChange(newPage) {
             this.queryInfo.pageNum = newPage;
-            this.getUserList();
-        },
-        async userStateChanged(userInfo) {
-            var formData = new FormData();
-            formData.append('id', userInfo.id);
-            formData.append('state', userInfo.state);
-            const { data:res } = this.$http.put('/userState', formData);
-            // this.$http.put(`userState?id=${userInfo.id}&state=${userInfo.state}`);
-            console.log(res);
-            if (typeof res != 'undefined') {
-                userInfo.id = !userInfo.id;
-                return this.$message.error("操作失败！！！");
-            }
-            this.$message.success("操作成功！！！")
         },
         addDialogClosed() {
             this.$refs.addFormRef.resetFields();
         },
-        addUser() {
-            this.$refs.addFormRef.validate(async valid => {
-                if (!valid) return;
-                const { data:res } = await this.$http.post("addUser", this.addForm);
-                if (res != "success") {
-                    return this.$message.error("操作失败！！！");
-                }
-                this.$message.success("操作成功！！！")
-                this.addDialogVisible = false;
-                this.getUserList();
-            });
-        },
         toggleAddDialogVisible() {
             this.addDialogVisible = !this.addDialogVisible;
-        },
-        async deleteUser(id) {
-            const confirmResult = await this.$confirm('此操作将永久删除用户，是否继续？', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).catch(err => err);
-            if (confirmResult != 'confirm') {
-                return this.$message.Info("已取消删除");
-            }
-            const { data:res } = await this.$http.delete("deleteUser?id=" + id);
-            if (res != "success") {
-                return this.$message.error("删除失败！");
-            }
-            this.$message.success("删除成功！");
-            this.getUserList();
         },
         async showEditDialog(id) {
             const { data:res } = await this.$http.get("getUpdate?id=" + id);
@@ -178,18 +202,6 @@ export default {
         },
         editDialogClosed() {
             this.$refs.editFormRef.resetFields();
-        },
-        editUserInfo() {
-            this.$refs.editFormRef.validate(async valid => {
-                if (!valid) return;
-                const { data:res} = await this.$http.put("editUser", this.editForm);
-                if (res != "success") {
-                    return this.$message.error("操作失败！");
-                }
-                this.$message.success("操作成功！");
-                this.editDialogVisible = false;
-                this.getUserList();
-            });
         },
     }
 }

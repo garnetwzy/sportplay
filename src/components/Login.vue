@@ -12,8 +12,8 @@
                     <el-input v-model="loginForm.password" prefix-icon="iconfont iconmima" type="password" ></el-input>
                 </el-form-item>
                 <el-form-item class="btns">
-                    <el-button type="primary" @click="login" >提交</el-button>
-                    <el-button type="info" @click="resetLoginForm">重置</el-button>
+                    <el-button type="primary" @click="login" >Submit</el-button>
+                    <el-button type="info" @click="resetLoginForm">Reset</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -30,12 +30,12 @@ export default {
             // 验证对象
             loginRules: {
                 username: [
-                    {required: true, message: '请输入用户名称', trigger: 'blur'}, 
-                    {min: 5, max: 10, message: '长度在3到5个字符', trigger: 'blur'}
+                    {required: true, message: 'Please input your username', trigger: 'blur'},
+                    {min: 5, max: 10, message: '3 - 5 characters', trigger: 'blur'}
                 ],
                 password: [
-                    {required: true, message: '请输入用户密码', trigger: 'blur'}, 
-                    {min: 6, max: 10, message: '长度在6到10个字符', trigger: 'blur'}
+                    {required: true, message: 'please input your password', trigger: 'blur'},
+                    {min: 6, max: 10, message: '6 - 10 characters', trigger: 'blur'}
                 ]
             }
         }
@@ -49,7 +49,7 @@ export default {
                 if (!valid) return;
                 const { data:res } = await this.$http.post("login", this.loginForm);
                 console.log(res);
-                if(res == 'ok') {
+                if(res.flag == 'ok') {
                     window.sessionStorage.setItem("user", res.user);
                     this.$message.success("Login success");
                     this.$router.push({path: "/home"});

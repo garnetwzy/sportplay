@@ -2,7 +2,7 @@
     <div class="container">
         <div class="search-div">
             <form class="search-form">
-                <input class="search-bar" v-model="query" type="text" value="placeholder"/>
+                <input class="search-bar" v-model="query" type="text" />
                 <button class="search-button" type="submit" @click="getRecipes">Search</button>
             </form>
         </div>
