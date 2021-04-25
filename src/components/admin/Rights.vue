@@ -17,8 +17,13 @@
                 <el-table-column label="Action">
                     <template slot-scope="scope" class="auth">
                         <!-- 权限 -->
-                        <el-tooltip effect="dark" content="Change Authority" placement="top-start" :enterable="false"><!--文字提示 enterable 隐藏-->
-                        <el-button type="warning" icon="el-icon-setting" size="mini" @click=""></el-button>
+                        <el-tooltip effect="dark" content="determin access level" placement="top-start" :enterable="false"><!--文字提示 enterable 隐藏-->
+                        <select v-model="userList[scope.$index].selected" @change="clickType(scope.$index)">
+                                <option disabled value="">Please select one</option>
+                                    <option>superadmin</option>
+                                    <option>admin</option>
+                                    <option>user</option>
+                        </select>
                         </el-tooltip>
                     </template>
                 </el-table-column>
@@ -97,6 +102,7 @@ export default {
             editForm: {
 
             },
+            selected: '',
             editDialogVisible: false,
           addFormRules: {
             username: [
@@ -130,27 +136,43 @@ export default {
             this.userList = res.data;
             this.total = res.numbers;
         },
-        handleSizeChange(newSize) {
-            this.queryInfo.pageSize = newSize;
-            this.getUserList();
-        },
-        handleCurrentChange(newPage) {
-            this.queryInfo.pageNum = newPage;
-            this.getUserList();
-        },
-        async userStateChanged(userInfo) {
-            var formData = new FormData();
-            formData.append('id', userInfo.id);
-            formData.append('state', userInfo.state);
-            const { data:res } = this.$http.put('/userState', formData);
+
+        userStateChanged(newUser) {
+            const { data:res } = this.$http.post('/editUser', newUser, {
+            headers: {
+                'Content-Type': 'application/json',
+            }});
             // this.$http.put(`userState?id=${userInfo.id}&state=${userInfo.state}`);
-            console.log(res);
             if (typeof res != 'undefined') {
                 userInfo.id = !userInfo.id;
                 return this.$message.error("Failed to change user state!");
             }
             this.$message.success("Success!")
+            location.reload()
         },
+
+        clickType(index) {
+            let newUser = {
+                'username': this.userList[index].username,
+                "role": this.userList[index].selected,
+                "state": this.userList[index].state,
+                "email": this.userList[index].email,
+                "password": this.userList[index].password,
+                "id": this.userList[index].id
+            }
+            this.userStateChanged(newUser)
+        },
+
+        handleSizeChange(newSize) {
+            this.queryInfo.pageSize = newSize;
+            this.getUserList();
+        },
+
+        handleCurrentChange(newPage) {
+            this.queryInfo.pageNum = newPage;
+            this.getUserList();
+        },
+
         addDialogClosed() {
             this.$refs.addFormRef.resetFields();
         },
