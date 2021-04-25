@@ -18,19 +18,12 @@
                     <el-button type="primary" @click="toggleAddDialogVisible">Add Sport</el-button>
                 </el-col>
             </el-row>
-            <el-table :data="sportList" border stripe :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }">
+            <el-table :data="foodList" border stripe :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }">
                 <el-table-column type="index"></el-table-column>
-                <el-table-column label="Calories" prop="calories"></el-table-column>
-                <el-table-column label="Hours" prop="hours"></el-table-column>
-                <el-table-column label="Date" prop="date"></el-table-column>
-                <el-table-column label="Operation">
-                    <template slot-scope="scope">
-                        <!-- 修改 -->
-                        <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.id)" ></el-button>
-                        <!-- 删除 -->
-                        <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteUser(scope.row.id)"></el-button>
-                    </template>
-                </el-table-column>
+                <el-table-column label="Food" prop="food"></el-table-column>
+                <el-table-column label="Category" prop="category"></el-table-column>
+                <el-table-column label="Calories per kg" prop="calories"></el-table-column>
+                <el-table-column label="Details" prop="detail"></el-table-column>
             </el-table>
             <div>
                 <el-pagination
@@ -95,7 +88,58 @@ export default {
                 pageNum: 1,
                 pageSize: 5
             },
-            sportList: [],
+            foodList: [
+              { food: "Banana",
+                category: "fruit",
+                calories: "890",
+                details: "Null"
+              },
+              { food: "Apple",
+                category: "fruit",
+                calories: "500",
+                details: "Null"
+              },
+              { food: "Avocado",
+                category: "fruit",
+                calories: "1600",
+                details: "Null"
+              },
+              { food: "Mango",
+                category: "fruit",
+                calories: "600",
+                details: "Null"
+              },
+              { food: "Pecans",
+                category: "nut",
+                calories: "70000",
+                details: "Null"
+              },
+              { food: "Beef, Rib eye",
+                category: "meat",
+                calories: "20000",
+                details: "Null"
+              },
+              { food: "Milk",
+                category: "diary",
+                calories: "420",
+                details: "Null"
+              },
+              { food: "Egg",
+                category: "egg",
+                calories: "1551",
+                details: "Null"
+              },
+              { food: "Chicken breast",
+                category: "meat",
+                calories: "1649",
+                details: "Null"
+              },
+              { food: "Spinach",
+                category: "vegetable",
+                calories: "230",
+                details: "Null"
+              },
+            ],
             total: 0,
             addDialogVisible: false,
             addForm: {
