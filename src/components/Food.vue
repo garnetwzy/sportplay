@@ -2,8 +2,9 @@
     <div class="container">
         <div class="search-div">
             <form class="search-form">
-                <input class="search-bar" v-model="query" type="text" />
-                <button class="search-button" type="submit" @click="getRecipes">Search</button>
+                <input class="search-bar" v-model="query" type="text"/>
+                <!-- <button class="search-button" type="submit" @click="getRecipes">Search</button> -->
+                <el-button class="search-button" slot="append" icon="el-icon-search" @click="getRecipes">Search</el-button>
             </form>
         </div>
         <div class="recipes" v-for="recipe in recipes">
@@ -51,6 +52,14 @@ export default {
             const {data:res} = await this.$http.get(`https://api.edamam.com/search?q=${this.query}&app_id=${this.APP_ID}&app_key=${this.APP_KEY}`);
             console.log(res);
             this.recipes = res.hits;
+        },
+        onkeydown(e) {
+            e.preventDefault();
+            let key = e.keyCode;
+            console.log(key);
+            if (key === 13) {
+                this.getRecipes();
+            }
         }
     }
 }
@@ -76,12 +85,13 @@ export default {
   width: 50%;
   border: none;
   padding: 10px;
+  margin-right: 10px;
 }
 
 .search-button {
   background: lightcoral;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 20px;
   color: white;
 }
 .recipes {
