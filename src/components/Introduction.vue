@@ -15,7 +15,7 @@
                     </el-input>
                 </el-col>
             </el-row>
-            <el-table :data="sportsList" border stripe :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }">
+            <el-table :data="displayList" border stripe :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }">
                 <el-table-column type="index"></el-table-column>
                 <el-table-column label="Sport name" prop="SportName" ></el-table-column>
                 <el-table-column label="Calories per hour" prop="Calories"></el-table-column>
@@ -73,6 +73,7 @@ export default {
                 pageSize: 5
             },
             //hardcode the sportsList
+            displayList: [],
             sportsList: [
               { SportName: "Yoga",
                 Calories: "180 ~ 460",
@@ -169,6 +170,20 @@ export default {
         }
     },
     methods: {
+        getUserList() {
+            console.log("ddd")
+            if (this.queryInfo.query === "") {
+                this.displayList = this.sportsList;
+            } else {
+                this.displayList = this.sportsList.filter(sport=> sport.SportName === this.queryInfo.query);
+                console.log(this.displayList)
+            }
+        },
+        
+        editUserInfo() {
+            console.log("ddd")
+            this.getUserList();
+        },
         handleSizeChange(newSize) {
             this.queryInfo.pageSize = newSize;
         },

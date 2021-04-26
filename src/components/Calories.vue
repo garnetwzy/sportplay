@@ -15,7 +15,7 @@
                     </el-input>
                 </el-col>
             </el-row>
-            <el-table :data="foodList" border stripe :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }">
+            <el-table :data="displayList" border stripe :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }">
                 <el-table-column type="index"></el-table-column>
                 <el-table-column label="Food" prop="food"></el-table-column>
                 <el-table-column label="Category" prop="category"></el-table-column>
@@ -85,6 +85,7 @@ export default {
                 pageNum: 1,
                 pageSize: 5
             },
+            displayList:[],
             foodList: [
               { food: "Banana",
                 category: "fruit",
@@ -137,9 +138,6 @@ export default {
                 details: "Spinach is necessary for energy metabolism, maintaining muscle and nerve function, heart rhythm, a healthy immune system, and maintaining blood pressure."
               },
             ],
-            showList: [
-
-            ],
             total: 10,
             addDialogVisible: false,
             addForm: {
@@ -187,14 +185,19 @@ export default {
             // console.log(res);
             // this.sportList = res.data;
             // this.total = res.numbers;
-          if(this.queryInfo.query == undefined) {
-            this.showList = this.foodList
+          if(this.queryInfo.query === "") {
+              this.displayList = this.foodList
           } else {
-            this.showList = this.foodList.filter(
-                this.foodList.name === this.queryInfo.query
-            )
+              this.displayList = this.foodList.filter(foodItem => foodItem.food === this.queryInfo.query);
           }
-          // console.log(this.queryInfo.query)
+        },
+
+        addSport() {
+            // TODO: future implement
+        },
+
+        editSportInfo() {
+            // TODO: future implement
         },
         handleSizeChange(newSize) {
             this.queryInfo.pageSize = newSize;
