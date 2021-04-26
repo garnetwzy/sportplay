@@ -23,18 +23,6 @@ const routes = [
     component: Login
   },
   {
-    path: "/Introduction",
-    component: Introduction
-  },
-  {
-    path: "/calories",
-    component: Calories
-  },
-  {
-    path: "/food",
-    component: Food
-  },
-  {
     path: "/home",
     component: Home,
     redirect: "/Welcome",
@@ -58,6 +46,18 @@ const routes = [
       {
         path: "/goods",
         component: Goods,
+      },
+      {
+        path: "/calories",
+        component: Calories
+      },
+      {
+        path: "/Introduction",
+        component: Introduction
+      },
+      {
+        path: "/food",
+        component: Food
       },
     ]
   }

@@ -17,7 +17,7 @@
                 <el-table-column label="Action">
                     <template slot-scope="scope" class="auth">
                         <!-- 权限 -->
-                        <el-tooltip effect="dark" content="determin access level" placement="top-start" :enterable="false"><!--文字提示 enterable 隐藏-->
+                        <el-tooltip effect="dark" content="determine access level" placement="top-start" :enterable="false"><!--文字提示 enterable 隐藏-->
                         <select v-model="userList[scope.$index].selected" @change="clickType(scope.$index)">
                                 <option disabled value="">Please select one</option>
                                     <option>superadmin</option>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Stats and Info</h1>
+        <h1>Sports and Info</h1>
         <!-- 面包屑导航 -->
         <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/home' }">Main</el-breadcrumb-item>
@@ -17,21 +17,21 @@
             </el-row>
             <el-table :data="sportsList" border stripe :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }">
                 <el-table-column type="index"></el-table-column>
-                <el-table-column label="Sport name" prop="SportName"></el-table-column>
+                <el-table-column label="Sport name" prop="SportName" ></el-table-column>
                 <el-table-column label="Calories per hour" prop="Calories"></el-table-column>
-                <el-table-column label="Details" prop="Details"></el-table-column>
-                <el-table-column label="Mark as Favorite" prop="Favorite">
-                    <template slot-scope="scope">
-                        <el-switch v-model="scope.row.state" @change="userStateChanged(scope.row)"></el-switch>
-                    </template>
-                </el-table-column>
+                <el-table-column label="Details" prop="Details" width="900%"></el-table-column>
+<!--                <el-table-column label="Mark as Favorite" prop="Favorite">-->
+<!--                    <template slot-scope="scope">-->
+<!--                        <el-switch v-model="scope.row.state" @change="userStateChanged(scope.row)"></el-switch>-->
+<!--                    </template>-->
+<!--                </el-table-column>-->
             </el-table>
             <div>
                 <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
                     :current-page="queryInfo.pageNum"
-                    :page-sizes="[1, 2, 5, 100]"
+                    :page-sizes="[20]"
                     :page-size="queryInfo.pageSize"
                     layout="total, sizes, prev, pager, next, jumper"
                     :total="total">
@@ -76,76 +76,62 @@ export default {
             sportsList: [
               { SportName: "Yoga",
                 Calories: "180 ~ 460",
-                Details: "Null",
-                Favorite: 0
+                Details: "Yoga is a group of physical, mental, and spiritual practices or disciplines which originated in ancient India.",
               },
               { SportName: "Jogging",
                 Calories: "200 ~ 400",
-                Details: "Null",
-                Favorite: 0
+                Details: "Jogging is a form of trotting or running at a slow or leisurely pace.",
               },
               { SportName: "Cycling",
                 Calories: "600",
-                Details: "Null",
-                Favorite: 0
+                Details: "Cycling, also called bicycling or biking, is the use of bicycles for transport, recreation, exercise or sport.",
               },
               { SportName: "Walking",
                 Calories: "230 ~ 370",
-                Details: "Null",
-                Favorite: 0
+                Details: "Walking is typically slower than running and other gaits.",
               },
               { SportName: "Swimming",
                 Calories: "600 ~ 1000",
-                Details: "Null",
-                Favorite: 0
+                Details: "Swimming keeps your heart and lungs healthy, improves strength and flexibility, increases stamina and even improves balance and posture.",
               },
               { SportName: "Dancing",
                 Calories: "200 ~ 400",
-                Details: "Null",
-                Favorite: 0
+                Details: "Dancing bolsters physical and mental health by helping to prevent falls, improve posture and flexibility, lift mood and ease anxiety.",
               },
               { SportName: "Badminton",
                 Calories: "200 ~ 400",
-                Details: "Null",
-                Favorite: 0
+                Details: "Badminton is a racquet sport played using racquets to hit a shuttlecock across a net.",
               },
               { SportName: "Basketball",
                 Calories: "470 ~ 740",
-                Details: "Null",
-                Favorite: 0
+                Details: "Basketballs usually range in size from very small promotional items that are only a few inches in diameter to extra large balls nearly 2 feet in diameter used in training exercises.",
               },
               { SportName: "Billiards",
                 Calories: "150 ~ 200",
-                Details: "Null",
-                Favorite: 0
+                Details: "Various games played on a billiard table in which cues are used to strike balls against each other or into pockets around the edge of the table.",
               },
               { SportName: "Boxing",
                 Calories: "700 ~ 1200",
-                Details: "Null",
-                Favorite: 0
+                Details: "Boxing is known to be a good cardio exercise. Maintaining a good heart condition is really important, and boxing helps to maintain it.",
               },
               { SportName: "Bowling",
                 Calories: "200",
-                Details: "Null",
-                Favorite: 0
+                Details: "Bowling is a target sport and recreational activity in which a player rolls a ball toward pins (in pin bowling) or another target (in target bowling).",
               },
               { SportName: "Football",
                 Calories: "600 ~ 800",
-                Details: "Null",
-                Favorite: 0
+                Details: "Football is a family of team sports that involve, to varying degrees, kicking a ball to score a goal.",
               },
               { SportName: "Golf",
                 Calories: "200 ~ 400",
-                Details: "Null",
-                Favorite: 0
+                Details: "Golf is a club-and-ball sport in which players use various clubs to hit balls into a series of holes on a course in as few strokes as possible.",
               },
               { SportName: "Hockey",
                 Calories: "400 ~ 750",
-                Details: "Null",
-                Favorite: 0
+                Details: "Hockey is a sport in which two teams play against each other by trying to manoeuvre a ball or a puck into the opponent's goal using a hockey stick.",
               },
             ],
-            total: 0,
+            total: 14,
             addDialogVisible: false,
             addForm: {
                 username: "",

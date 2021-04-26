@@ -10,12 +10,9 @@
         <el-card>
             <el-row :gutter="25" type="flex" justify="center" align="middle">
                 <el-col :span="10">
-                    <el-input placeholder="Please enter your search content" v-model="queryInfo.query" clearable @clear="getSportList">
-                        <el-button slot="append" icon="el-icon-search" @click="getSportList"></el-button>
+                    <el-input placeholder="Please enter your search content" v-model="queryInfo.query" clearable @clear="getFoodList">
+                        <el-button slot="append" icon="el-icon-search" @click="getFoodList"></el-button>
                     </el-input>
-                </el-col>
-                <el-col :span="4">
-                    <el-button type="primary" @click="toggleAddDialogVisible">Add Sport</el-button>
                 </el-col>
             </el-row>
             <el-table :data="foodList" border stripe :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }">
@@ -23,14 +20,14 @@
                 <el-table-column label="Food" prop="food"></el-table-column>
                 <el-table-column label="Category" prop="category"></el-table-column>
                 <el-table-column label="Calories per kg" prop="calories"></el-table-column>
-                <el-table-column label="Details" prop="detail"></el-table-column>
+                <el-table-column label="Details" prop="details" width = "800%"></el-table-column>
             </el-table>
             <div>
                 <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
                     :current-page="queryInfo.pageNum"
-                    :page-sizes="[1, 2, 5, 100]"
+                    :page-sizes="[10]"
                     :page-size="queryInfo.pageSize"
                     layout="total, sizes, prev, pager, next, jumper"
                     :total="total">
@@ -78,7 +75,7 @@
 <script>
 export default {
     created() {
-        this.getSportList();
+        this.getFoodList();
     },
     data() {
         return {
@@ -92,55 +89,58 @@ export default {
               { food: "Banana",
                 category: "fruit",
                 calories: "890",
-                details: "Null"
+                details: "Bananas are a healthful addition to a balanced diet, as they provide a range of vital nutrients, Vitamins and are a good source of fiber."
               },
               { food: "Apple",
                 category: "fruit",
                 calories: "500",
-                details: "Null"
+                details: "Apples Are Nutritious. Apples May Be Good for Weight Loss. Apples May Be Good for Your Heart. They're Linked to a Lower Risk of Diabetes."
               },
               { food: "Avocado",
                 category: "fruit",
                 calories: "1600",
-                details: "Null"
+                details: "Avocados are a great source of vitamins C, E, K, and B-6, as well as riboflavin, niacin, folate, pantothenic acid, magnesium, and potassium."
               },
               { food: "Mango",
                 category: "fruit",
                 calories: "600",
-                details: "Null"
+                details: "Mango is low in calories yet high in nutrients — particularly vitamin C, which aids immunity, iron absorption and growth and repair."
               },
               { food: "Pecans",
                 category: "nut",
                 calories: "70000",
-                details: "Null"
+                details: "Raw pecans pack a 1-2-3 punch of protein, healthy fats, and fiber that can help keep you energized and satisfied."
               },
               { food: "Beef, Rib eye",
                 category: "meat",
                 calories: "20000",
-                details: "Null"
+                details: "Fresh, lean beef is rich in various vitamins and minerals, especially iron and zinc."
               },
               { food: "Milk",
                 category: "diary",
                 calories: "420",
-                details: "Null"
+                details: "Milk Does More Than Build Strong Bones. Its Many Vitamins & Minerals Benefit Your Health. Milk Is An Essential Part Of Helping Every Body Thrive."
               },
               { food: "Egg",
                 category: "egg",
                 calories: "1551",
-                details: "Null"
+                details: "Eggs are rich sources of selenium, vitamin D, B6, B12 and minerals such as zinc, iron and copper. Egg yolks contain more calories and fat than the whites."
               },
               { food: "Chicken breast",
                 category: "meat",
                 calories: "1649",
-                details: "Null"
+                details: "Chicken is also a good source of vitamin B, vitamin D, calcium, iron, zinc, and trace amounts of vitamin A and vitamin C."
               },
               { food: "Spinach",
                 category: "vegetable",
                 calories: "230",
-                details: "Null"
+                details: "Spinach is necessary for energy metabolism, maintaining muscle and nerve function, heart rhythm, a healthy immune system, and maintaining blood pressure."
               },
             ],
-            total: 0,
+            showList: [
+
+            ],
+            total: 10,
             addDialogVisible: false,
             addForm: {
                 calories: "",
@@ -182,53 +182,31 @@ export default {
         }
     },
     methods: {
-        async getSportList() {
-            const {data:res} = await this.$http.get("allSports", {params: this.queryInfo});
-            console.log(res);
-            this.sportList = res.data;
-            this.total = res.numbers;
+        getFoodList() {
+            // const {data:res} = await this.$http.get("allSports", {params: this.queryInfo});
+            // console.log(res);
+            // this.sportList = res.data;
+            // this.total = res.numbers;
+          if(this.queryInfo.query == undefined) {
+            this.showList = this.foodList
+          } else {
+            this.showList = this.foodList.filter(
+                this.foodList.name === this.queryInfo.query
+            )
+          }
+          // console.log(this.queryInfo.query)
         },
         handleSizeChange(newSize) {
             this.queryInfo.pageSize = newSize;
-            this.getSportList();
         },
         handleCurrentChange(newPage) {
             this.queryInfo.pageNum = newPage;
-            this.getSportList();
         },
         addDialogClosed() {
             this.$refs.addFormRef.resetFields();
         },
-        addSport() {
-            this.$refs.addFormRef.validate(async valid => {
-                if (!valid) return;
-                const { data:res } = await this.$http.post("addSports", this.addForm);
-                if (res != "success") {
-                    return this.$message.error("Failed to add sport!");
-                }
-                this.$message.success("Success!")
-                this.addDialogVisible = false;
-                this.getSportList();
-            });
-        },
         toggleAddDialogVisible() {
             this.addDialogVisible = !this.addDialogVisible;
-        },
-        async deleteSport(id) {
-            const confirmResult = await this.$confirm('This action will delete sport permanently, click to continue', 'reminder', {
-                confirmButtonText: 'Confirm',
-                cancelButtonText: 'Cancel',
-                type: 'warning'
-            }).catch(err => err);
-            if (confirmResult != 'confirm') {
-                return this.$message.Info("Cancelled");
-            }
-            const { data:res } = await this.$http.delete("deleteSport?id=" + id);
-            if (res != "success") {
-                return this.$message.error("Failed to delete!");
-            }
-            this.$message.success("Success!");
-            this.getSportList();
         },
         async showEditDialog(id) {
             const { data:res } = await this.$http.get("getUpdate?id=" + id);
@@ -237,18 +215,6 @@ export default {
         },
         editDialogClosed() {
             this.$refs.editFormRef.resetFields();
-        },
-        editSportInfo() {
-            this.$refs.editFormRef.validate(async valid => {
-                if (!valid) return;
-                const { data:res} = await this.$http.put("editSports", this.editForm);
-                if (res != "success") {
-                    return this.$message.error("Failed to edit!");
-                }
-                this.$message.success("Success！");
-                this.editDialogVisible = false;
-                this.getSportList();
-            });
         },
     }
 }
