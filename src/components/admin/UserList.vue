@@ -52,7 +52,7 @@
         </el-card>
 
         <el-dialog title="Add user" :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed">
-            <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="70px">
+            <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="100px">
                 <el-form-item label="Username" prop="username">
                     <el-input v-model="addForm.username"></el-input>
                 </el-form-item>
@@ -70,7 +70,7 @@
         </el-dialog>
 
         <el-dialog title="Edit user info" :visible.sync="editDialogVisible" width="50%" @close="editDialogClosed">
-            <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="70px">
+            <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="100px">
                 <el-form-item label="Username" prop="username">
                     <el-input v-model="editForm.username" disabled></el-input>
                 </el-form-item>

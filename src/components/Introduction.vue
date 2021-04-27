@@ -17,9 +17,9 @@
             </el-row>
             <el-table :data="displayList" border stripe :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }">
                 <el-table-column type="index"></el-table-column>
-                <el-table-column label="Sport name" prop="SportName" ></el-table-column>
-                <el-table-column label="Calories per hour" prop="Calories"></el-table-column>
-                <el-table-column label="Details" prop="Details" width="900%"></el-table-column>
+                <el-table-column label="Sport name" prop="SportName" width="110%"></el-table-column>
+                <el-table-column label="Calories per hour" prop="Calories" width="120%"></el-table-column>
+                <el-table-column label="Details" prop="Details" width="870%" ></el-table-column>
 <!--                <el-table-column label="Mark as Favorite" prop="Favorite">-->
 <!--                    <template slot-scope="scope">-->
 <!--                        <el-switch v-model="scope.row.state" @change="userStateChanged(scope.row)"></el-switch>-->

@@ -14,7 +14,7 @@
                 <el-table-column label="Email" prop="email"></el-table-column>
                 <el-table-column label="Password" prop="password"></el-table-column>
                 <el-table-column label="Role" prop="role"></el-table-column>
-                <el-table-column label="Action">
+                <el-table-column label="Change Access">
                     <template slot-scope="scope" class="auth">
                         <!-- 权限 -->
                         <el-tooltip effect="dark" content="determine access level" placement="top-start" :enterable="false"><!--文字提示 enterable 隐藏-->

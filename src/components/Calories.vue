@@ -17,10 +17,10 @@
             </el-row>
             <el-table :data="displayList" border stripe :header-cell-style="{textAlign: 'center'}" :cell-style="{ textAlign: 'center' }">
                 <el-table-column type="index"></el-table-column>
-                <el-table-column label="Food" prop="food"></el-table-column>
-                <el-table-column label="Category" prop="category"></el-table-column>
-                <el-table-column label="Calories per kg" prop="calories"></el-table-column>
-                <el-table-column label="Details" prop="details" width = "800%"></el-table-column>
+                <el-table-column label="Food" prop="food" width="110%"></el-table-column>
+                <el-table-column label="Category" prop="category" width="110%"></el-table-column>
+                <el-table-column label="Calories per kg" prop="calories" width="110%"></el-table-column>
+                <el-table-column label="Details" prop="details" width = "770%"></el-table-column>
             </el-table>
             <div>
                 <el-pagination
