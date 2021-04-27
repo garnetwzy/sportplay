@@ -9,6 +9,7 @@ import axios from 'axios';
 
 Vue.prototype.$http = axios
 axios.defaults.baseURL = "https://still-stream-50614.herokuapp.com"
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
 Vue.config.productionTip = false
 
